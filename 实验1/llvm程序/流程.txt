@@ -1,0 +1,18 @@
+生成汇编：
+①逐步生成目标代码（汇编，二进制文件，可执行程序）
+llc code.ll -o code.S
+gcc code.S -c -o code.o
+gcc code.o -o code -no-pie
+
+②转换成bc文件，省略汇编到二进制文件
+llvm-as code.ll -o code.bc
+llc code.bc -filetype=obj -o code.o
+gcc code.o -o code -no-pie
+ 
+③lli指令：JIT即时编译器翻译成本地机器指令，直接运行
+llvm-as code.ll -o code.bc
+lli code.bc 
+
+换行字符定义：0x0A 如果用\n这样的会被识别为两个字符，且输出时输出原义字符串
+
+
